@@ -37,7 +37,7 @@ def ListMaterials(PrintID: int):
     Materials = []
     con = sqlite3.connect("sqlite-latest.sqlite")
     cur=con.cursor()
-    query = "SELECT iam.materialTypeID,it.typename,it.groupid,iam.quantity FROM industryactivitymaterials iam join invtypes it on iam.materialtypeid = it.typeid WHERE iam.typeid = " + str(PrintID)
+    query = "SELECT iam.materialTypeID,it.typename,it.groupid,iam.quantity FROM industryactivitymaterials iam join invtypes it on iam.materialtypeid = it.typeid WHERE iam.activityid=1 iam.typeid = " + str(PrintID)
     for row in cur.execute(query):
         Materials.append(material(name=row[1], id=row[0], gid=row[2], amount=row[3]))
     materials_json = jsonable_encoder(Materials)
